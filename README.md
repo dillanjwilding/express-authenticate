@@ -1,2 +1,2 @@
 # express-authenticate
-Express Authentication
+Configurable Express Authentication Middleware

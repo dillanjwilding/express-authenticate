@@ -1,0 +1,30 @@
+{
+  "name": "express-authenticate",
+  "version": "0.0.1",
+  "description": "ExpressJS Authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon test.js"
+  },
+  "devDependencies": {
+    "express": "~4.17.1",
+    "nodemon": "~2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dillanjwilding/express-authenticate.git"
+  },
+  "keywords": [
+    "Express",
+    "ExpressJS",
+    "Node",
+    "NodeJS",
+    "User",
+    "Authentication"
+  ],
+  "author": "Dillan J. Wilding <dillanjwilding@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dillanjwilding/express-authenticate/issues"
+  },
+  "homepage": "https://github.com/dillanjwilding/express-authenticate#readme"
+}
