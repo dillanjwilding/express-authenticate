@@ -1,10 +1,12 @@
 const express = require('express')
-const authenticate = require('./index.js')
+const setup = require('./index.js')
 
 const app = express()
-app.use(authenticate)
+setup(app)
 
-app.get('/', (req, res) => {
+// app.use(setup.requireAuth)
+
+app.get('/', setup.requireAuth, (req, res) => {
   res.send('Hello World!')
 })
 
