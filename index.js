@@ -1,12 +1,8 @@
-require('dotenv').config()
 const passport = require('./passport.js')
 
-module.exports = function (app) {
+module.exports.setup = function (app) {
   console.log('setup')
   app.use(passport.initialize())
 }
 
-module.exports.requireAuth = function (req, res, next) {
-  console.log('require auth')
-  next()
-}
+module.exports.requireAuth = passport.authenticate('jwt', { session: false })

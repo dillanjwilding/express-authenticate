@@ -1,13 +1,19 @@
 const express = require('express')
-const setup = require('./index.js')
+
+require('dotenv').config()
+const { setup, requireAuth } = require('./index.js')
 
 const app = express()
 setup(app)
 
-// app.use(setup.requireAuth)
+// app.use(requireAuth)
 
-app.get('/', setup.requireAuth, (req, res) => {
-  res.send('Hello World!')
+app.get('/unauthenticated', (req, res) => {
+  res.send('Unauthenticated')
+})
+
+app.get('/authenticated', requireAuth, (req, res) => {
+  res.send('Authenticated')
 })
 
 const port = 3000
