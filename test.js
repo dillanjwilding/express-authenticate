@@ -1,7 +1,11 @@
 const express = require('express')
 
 require('dotenv').config()
-const { setup, requireAuth } = require('./index.js')
+const { setup, requireAuth } = require('./index.js')({
+  test: 'hello world!'
+})
+/* const init = require('./index.js')
+const { setup, requireAuth } = init(props) */
 
 const app = express()
 setup(app)

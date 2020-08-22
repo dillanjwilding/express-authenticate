@@ -1,8 +1,11 @@
-const passport = require('./passport.js')
+module.exports = function (props) {
+  const passport = require('./passport.js')(props)
 
-module.exports.setup = function (app) {
-  console.log('setup')
-  app.use(passport.initialize())
+  return {
+    setup: function (app) {
+      console.log('setup')
+      app.use(passport.initialize())
+    },
+    requireAuth: passport.authenticate('jwt', { session: false })
+  }
 }
-
-module.exports.requireAuth = passport.authenticate('jwt', { session: false })
