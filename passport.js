@@ -8,9 +8,15 @@ const ExtractJwt = jwt.ExtractJwt
 
 const { JWT_SECRET } = process.env
 
-module.exports = function (props) {
+module.exports = function ({ usernameField = 'username' }) {
+  // Property validation
+  if (!['username', 'email'].includes(usernameField)) {
+    throw new Error('Unsupported value for Passport LocalStrategy usernameField property.')
+  }
+
+  // Setting up Passport local authentication
   passport.use(new LocalStrategy({
-    usernameField: 'email'
+    usernameField
   }, (uniqueId, password, callback) => {
     /* return User.findOne({
       where: { email }
@@ -21,6 +27,8 @@ module.exports = function (props) {
       console.log(error)
     }) */
   }))
+
+  // Setting up Passport JWT verification
   passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: JWT_SECRET
