@@ -18,7 +18,7 @@ module.exports = ({ client, connection, userTable = 'Users', usernameField = 'us
     throw new Error('Connection parameter not supplied.')
   } else {
     if (typeof connection === 'object') {
-      if (!['host', 'user', 'password', 'database'].every(prop => connection.hasOwnProperty(prop))) {
+      if (!['host', 'user', 'password', 'database'].every(prop => Object.prototype.hasOwnProperty.call(connection, prop))) {
         throw new Error('Connection object missing required properties.')
       }
     } else if (typeof connection !== 'string') {
