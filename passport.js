@@ -39,10 +39,9 @@ module.exports = ({ client, connection, userTable = 'Users', usernameField = 'us
     passwordField
   }, (uniqueId, password, callback) => {
     return knex(userTable)
-      .select(passwordField)
+      // .select(passwordField)
       .where(usernameField, uniqueId)
       .first().then(user => {
-        console.log(user)
         if (!user || !bcrypt.compareSync(password, user[passwordField])) return callback(null, false)
         return callback(null, user)
       }).catch(error => {
