@@ -2,9 +2,34 @@
   "name": "express-authenticate",
   "version": "0.0.1",
   "description": "ExpressJS Authentication",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "author": {
+    "name": "Dillan J. Wilding",
+    "email": "dillanjwilding@gmail.com"
+  },
+  "keywords": [
+    "Express",
+    "ExpressJS",
+    "Node",
+    "NodeJS",
+    "User",
+    "Authentication"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dillanjwilding/express-authenticate.git"
+  },
+  "homepage": "https://github.com/dillanjwilding/express-authenticate#readme",
+  "bugs": {
+    "url": "https://github.com/dillanjwilding/express-authenticate/issues"
+  },
   "scripts": {
-    "test": "nodemon test.js"
+    "lint": "./node_modules/.bin/standard",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "dev": "webpack --watch",
+    "demo": "nodemon demo/index.js",
+    "build": "webpack"
   },
   "dependencies": {
     "bcrypt": "~5.0.0",
@@ -15,28 +40,23 @@
     "passport-local": "~1.0.0"
   },
   "devDependencies": {
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
     "dotenv": "~8.2.0",
     "ejs": "~3.1.5",
     "express": "~4.17.1",
+    "jest": "~26.4.2",
     "mysql": "~2.18.1",
     "nodemon": "~2.0.4",
-    "pg": "~8.3.2"
+    "pg": "~8.3.2",
+    "standard": "~14.3.4",
+    "webpack": "~4.44.1",
+    "webpack-cli": "~3.3.12",
+    "webpack-dev-server": "~3.11.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dillanjwilding/express-authenticate.git"
-  },
-  "keywords": [
-    "Express",
-    "ExpressJS",
-    "Node",
-    "NodeJS",
-    "User",
-    "Authentication"
-  ],
-  "author": "Dillan J. Wilding <dillanjwilding@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/dillanjwilding/express-authenticate/issues"
-  },
-  "homepage": "https://github.com/dillanjwilding/express-authenticate#readme"
+  "standard": {
+    "ignore": [
+      "lib/*"
+    ]
+  }
 }

@@ -4,8 +4,11 @@ const jwt = require('jsonwebtoken')
 
 const router = Router()
 
-module.exports = ({ session = false }) => {
+module.exports = ({ secret, session = false }) => {
   // Validation
+  if (typeof secret === 'undefined') {
+    throw new Error('Unacceptable value for JWT secret')
+  }
   if (typeof session !== 'boolean') {
     throw new Error('Unsupported value for session parameter.')
   }
@@ -18,7 +21,7 @@ module.exports = ({ session = false }) => {
         if (err) return res.status(400).json({ error: info ? info.message : 'Login Failed' })
         delete user.password
         return res.json({
-          token: jwt.sign({ ...user }, process.env.JWT_SECRET, { expiresIn: '6h' }),
+          token: jwt.sign({ ...user }, secret, { expiresIn: '6h' }),
           user
         })
       })

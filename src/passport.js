@@ -7,10 +7,11 @@ const LocalStrategy = require('passport-local').Strategy
 const JwtStrategy = jwt.Strategy
 const ExtractJwt = jwt.ExtractJwt
 
-const { JWT_SECRET } = process.env
-
-module.exports = ({ client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password' }) => {
+module.exports = ({ secret, client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password' }) => {
   // Validation
+  if (typeof secret === 'undefined') {
+    throw new Error('Unacceptable value for JWT secret')
+  }
   if (!['mysql', 'pg'].includes(client)) {
     throw new Error('Unsupported database client.')
   }
@@ -53,7 +54,7 @@ module.exports = ({ client, connection, userTable = 'Users', usernameField = 'us
   // Setting up Passport JWT verification
   passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: JWT_SECRET
+    secretOrKey: secret
   }, ({ id }, callback) => {
     return knex(userTable)
       .where({ id })

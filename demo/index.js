@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt')
 const express = require('express')
+const path = require('path')
 
 // Load environmental variables
-require('dotenv').config()
+require('dotenv').config({ path: path.join(__dirname, '/.env') })
 
 // Database configuration for passport and for knex to use in the example
 const client = 'mysql'
@@ -14,7 +15,8 @@ const connection = {
 }
 
 // Import the express-authenticate middleware
-const { setup, requireAuth } = require('./index.js')({
+const { setup, requireAuth } = require('../lib/index.js')({
+  secret: process.env.JWT_SECRET,
   client,
   connection,
   usernameField: 'email'
@@ -40,6 +42,7 @@ setup(app)
 
 // Add a view engine for the authentication example's signup and login pages
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, '/views'))
 
 // Examples of a route that doesn't require authentication
 app.get('/signup', (req, res, next) => {

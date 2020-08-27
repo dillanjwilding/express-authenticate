@@ -6,6 +6,7 @@ module.exports = ({ loginRoute = '/login', session = false, ...props }) => {
   if (typeof session !== 'boolean') {
     throw new Error('Unsupported value for session parameter.')
   }
+  // @todo: Limit the acceptable props and do more validation
 
   // Set up Passport
   const passport = require('./passport.js')(props)
