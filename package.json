@@ -17,11 +17,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dillanjwilding/express-authenticate.git"
+    "url": "git+https://github.com/dillanjwilding/expressjs-authenticate.git"
   },
-  "homepage": "https://github.com/dillanjwilding/express-authenticate#readme",
+  "homepage": "https://github.com/dillanjwilding/expressjs-authenticate#readme",
   "bugs": {
-    "url": "https://github.com/dillanjwilding/express-authenticate/issues"
+    "url": "https://github.com/dillanjwilding/expressjs-authenticate/issues"
   },
   "scripts": {
     "lint": "./node_modules/.bin/standard",

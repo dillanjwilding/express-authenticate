@@ -11,10 +11,10 @@ const connection = {
   host: '127.0.0.1',
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: 'express-authenticate'
+  database: 'expressjs-authenticate'
 }
 
-// Import the express-authenticate middleware
+// Import the expressjs-authenticate middleware
 const { setup, requireAuth } = require('../lib/index.js')({
   secret: process.env.JWT_SECRET,
   client,
@@ -34,7 +34,7 @@ app.use(
   express.json(), express.urlencoded({ extended: false })
 )
 
-// Apply the express-authenticate middleware to the Express app
+// Apply the expressjs-authenticate middleware to the Express app
 setup(app)
 
 // Require all routes to have authentication; be careful, this doesn't allow unprotected /signup or /login routes

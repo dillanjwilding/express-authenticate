@@ -1,10 +1,10 @@
-# express-authenticate
+# expressjs-authenticate
 Configurable Express Authentication Middleware
 
 ## Setup
 
 ```
-const { setup, requireAuth } = require('express-authenticate')({
+const { setup, requireAuth } = require('expressjs-authenticate')({
   secret: process.env.JWT_SECRET,
   client,
   connection,
