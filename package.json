@@ -1,5 +1,5 @@
 {
-  "name": "express-authenticate",
+  "name": "expressjs-authenticate",
   "version": "0.0.1",
   "description": "ExpressJS Authentication",
   "main": "lib/index.js",
