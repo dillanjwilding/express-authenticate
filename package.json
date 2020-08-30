@@ -1,7 +1,7 @@
 {
   "name": "expressjs-authenticate",
   "version": "0.0.1",
-  "description": "ExpressJS Authentication",
+  "description": "Configurable Express Authentication Middleware",
   "main": "lib/index.js",
   "author": {
     "name": "Dillan J. Wilding",
