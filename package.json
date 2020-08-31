@@ -1,6 +1,6 @@
 {
   "name": "expressjs-authenticate",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Configurable Express Authentication Middleware",
   "main": "lib/index.js",
   "author": {
