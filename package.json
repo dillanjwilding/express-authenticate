@@ -23,6 +23,9 @@
   "bugs": {
     "url": "https://github.com/dillanjwilding/expressjs-authenticate/issues"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "lint": "./node_modules/.bin/standard",
     "test": "jest",
