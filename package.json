@@ -8,12 +8,12 @@
     "email": "dillanjwilding@gmail.com"
   },
   "keywords": [
-    "Express",
-    "ExpressJS",
-    "Node",
-    "NodeJS",
-    "User",
-    "Authentication"
+    "express",
+    "express.js",
+    "node",
+    "node.js",
+    "user",
+    "authentication"
   ],
   "repository": {
     "type": "git",
