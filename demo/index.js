@@ -29,10 +29,7 @@ const app = express()
 const knex = require('knex')({ client, connection })
 
 // Parse requests to routes
-app.use(
-  ['/login', '/signup'],
-  express.json(), express.urlencoded({ extended: false })
-)
+app.use('/signup', express.json(), express.urlencoded({ extended: false }))
 
 // Apply the expressjs-authenticate middleware to the Express app
 setup(app)

@@ -1,3 +1,5 @@
+const express = require('express')
+
 module.exports = ({ loginRoute = '/login', session = false, ...props }) => {
   // Validation
   if (typeof loginRoute !== 'string') {
@@ -13,6 +15,9 @@ module.exports = ({ loginRoute = '/login', session = false, ...props }) => {
 
   return {
     setup: app => {
+      // Parse requests to routes
+      app.use(loginRoute, express.json(), express.urlencoded({ extended: false }))
+
       // Authentication (Passport Strategies, JWT Tokens, etc.)
       app.use(passport.initialize())
 
