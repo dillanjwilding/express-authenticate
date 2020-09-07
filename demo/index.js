@@ -21,7 +21,7 @@ const { setup, requireAuth } = require('../lib/index.js')({
   connection,
   usernameField: 'email'
 })
-/* const init = require('./index.js')
+/* const init = require('../lib/index.js')
 const { setup, requireAuth } = init(props) */
 
 // Create an Express application and knex connection
