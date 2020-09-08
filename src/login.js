@@ -4,12 +4,23 @@ const jwt = require('jsonwebtoken')
 
 const router = Router()
 
-module.exports = ({ jwtSecret, cookieConfig = {}, session = false }) => {
+/**
+ *
+ * @param string jwtString
+ * @param object cookieConfig
+ * httpOnly: Disable accessing cookie on the client side
+ * secure: Force https
+ * maxAge: TTL in ms (remove this option and cookie will die when browser is closed)
+ * signed: Sign if secret is supplied to cookieParser
+ * @param boolean session
+ */
+module.exports = ({ jwtSecret, cookieConfig = { httpOnly: true, secure: true, maxAge: 60 * 60 * 60 * 24, signed: true }, session = false }) => {
   // Validation
   if (typeof jwtSecret === 'undefined') {
     throw new Error('Unacceptable value for JWT secret')
   }
-  if (typeof cookieConfig === 'object' && !['httpOnly', 'secure', 'maxAge', 'signed'].every(prop => Object.prototype.hasOwnProperty.call(connection, prop))) {
+  if (typeof cookieConfig === 'object' && !['httpOnly', 'secure', 'maxAge', 'signed'].every(prop => Object.prototype.hasOwnProperty.call(cookieConfig, prop))) {
+    throw new Error('Connection object missing required properties.')
   }
   if (typeof session !== 'boolean') {
     throw new Error('Unsupported value for session parameter.')

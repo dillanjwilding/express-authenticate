@@ -29,16 +29,22 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
         httpOnly: true, // Disable accessing cookie on the client side
         secure: false, // Force https
         maxAge: 1000000000, // TTL in ms (remove this option and cookie will die when browser is closed)
-        signed: true // if secret is supplied to cookieParser
+        signed: true // Sign if secret is supplied to cookieParser
+      }
+
+      if (process.env.NODE_ENV === 'development') {
+        // Log HTTP requests
+        const morgan = require('morgan')
+        app.use(morgan('combined'))
       }
 
       // Cookies
       app.use(cookieParser(cookieSecret))
 
-      // CSRF
+      // CSRF for all requests
       app.use(csurf(cookieConfig))
 
-      // Security/Protection
+      // Security/Protection for all requests
       app.use(helmet()) // { dnsPrefetchControl: false, frameguard: false, ieNoOpen: false }
       app.use(cors({
         origin: '*',
