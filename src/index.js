@@ -42,7 +42,7 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
       app.use(cookieParser(cookieSecret))
 
       // CSRF for all requests
-      app.use(csurf(cookieConfig))
+      app.use(csurf({ cookie: true, ...cookieConfig }))
 
       // Security/Protection for all requests
       app.use(helmet()) // { dnsPrefetchControl: false, frameguard: false, ieNoOpen: false }
