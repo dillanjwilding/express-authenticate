@@ -16,12 +16,13 @@ const connection = {
 
 // Import the expressjs-authenticate middleware
 const { setup, requireAuth } = require('../lib/index.js')({
-  secret: process.env.JWT_SECRET,
+  jwtSecret: process.env.JWT_SECRET,
+  cookieSecret: process.env.COOKIE_SECRET,
   client,
   connection,
   usernameField: 'email'
 })
-/* const init = require('./index.js')
+/* const init = require('../lib/index.js')
 const { setup, requireAuth } = init(props) */
 
 // Create an Express application and knex connection
@@ -44,7 +45,7 @@ app.set('views', path.join(__dirname, '/views'))
 // Examples of a route that doesn't require authentication
 app.get('/signup', (req, res, next) => {
   // Display the signup form page
-  res.render('signup')
+  res.render('signup', { _csrf: req.csrfToken() })
 })
 
 app.post('/signup', (req, res, next) => {
@@ -56,7 +57,7 @@ app.post('/signup', (req, res, next) => {
 
 app.get('/login', (req, res, next) => {
   // Display the login form page
-  res.render('login')
+  res.render('login', { _csrf: req.csrfToken() })
 })
 
 // Example of a route that requires authentication
