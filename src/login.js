@@ -14,10 +14,13 @@ const router = Router()
  * signed: Sign if secret is supplied to cookieParser
  * @param boolean session
  */
-module.exports = ({ jwtSecret, cookieConfig = { httpOnly: true, secure: true, maxAge: 60 * 60 * 60 * 24, signed: true }, session = false }) => {
+module.exports = ({ jwtSecret, jwtCookie, cookieConfig, session = false }) => {
   // Validation
-  if (typeof jwtSecret === 'undefined') {
+  if (typeof jwtSecret !== 'string') {
     throw new Error('Unacceptable value for JWT secret')
+  }
+  if (typeof jwtCookie !== 'string') {
+    throw new Error('Unacceptable value for JWT cookie name')
   }
   if (typeof cookieConfig === 'object' && !['httpOnly', 'secure', 'maxAge', 'signed'].every(prop => Object.prototype.hasOwnProperty.call(cookieConfig, prop))) {
     throw new Error('Connection object missing required properties.')
@@ -34,7 +37,7 @@ module.exports = ({ jwtSecret, cookieConfig = { httpOnly: true, secure: true, ma
         if (err) return res.status(400).json({ error: info ? info.message : 'Login Failed' })
         delete user.password // protect password by never returning it
         // Possibly use a limited set of user data to generate JWT rather than all the values in the whole table
-        res.cookie('token', jwt.sign({ ...user }, jwtSecret, { expiresIn: '6h' }), cookieConfig)
+        res.cookie(jwtCookie, jwt.sign({ ...user }, jwtSecret, { expiresIn: '6h' }), cookieConfig)
         return res.json({ user })
       })
     })(req, res, next)

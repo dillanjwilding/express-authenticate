@@ -4,10 +4,13 @@ const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const LocalStrategy = require('passport-local').Strategy
 
-module.exports = ({ jwtSecret, client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password', signed = true }) => {
+module.exports = ({ jwtSecret, jwtCookie, client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password', signed = true }) => {
   // Validation
   if (typeof jwtSecret !== 'string') {
     throw new Error('Unsupported value for jwtSecret.')
+  }
+  if (typeof jwtCookie !== 'string') {
+    throw new Error('Unsupported value for jwtCookie.')
   }
   if (!['mysql', 'pg'].includes(client)) {
     throw new Error('Unsupported database client.')
@@ -53,7 +56,7 @@ module.exports = ({ jwtSecret, client, connection, userTable = 'Users', username
     jwtFromRequest: function (req) {
       let token = null
       if (req) {
-        token = signed ? req.signedCookies.token : req.cookies.token
+        token = signed ? req.signedCookies[jwtCookie] : req.cookies[jwtCookie]
       }
       return token
     },
