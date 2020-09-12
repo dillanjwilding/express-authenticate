@@ -24,6 +24,9 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
 
   return {
     setup: app => {
+      // Parse requests to routes
+      app.use(loginRoute, express.json(), express.urlencoded({ extended: false }))
+
       // @todo: Change secure to true
       const cookieConfig = {
         httpOnly: true, // Disable accessing cookie on the client side
@@ -51,9 +54,6 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
         methods: ['GET', 'POST']
         // allowedHeaders: ['Cross-Origin', 'Content-Type', 'Authorization']
       }))
-
-      // Parse requests to routes
-      app.use(loginRoute, express.json(), express.urlencoded({ extended: false }))
 
       // Authentication (Passport Strategies, JWT Tokens, etc.)
       app.use(passport.initialize())
