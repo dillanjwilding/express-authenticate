@@ -1,13 +1,10 @@
 const bcrypt = require('bcrypt')
 // const knex = require('knex')
 const passport = require('passport')
-const jwt = require('passport-jwt')
+const JwtStrategy = require('passport-jwt').Strategy
 const LocalStrategy = require('passport-local').Strategy
 
-const JwtStrategy = jwt.Strategy
-const ExtractJwt = jwt.ExtractJwt
-
-module.exports = ({ jwtSecret, client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password' }) => {
+module.exports = ({ jwtSecret, client, connection, userTable = 'Users', usernameField = 'username', passwordField = 'password', signed = true }) => {
   // Validation
   if (typeof jwtSecret !== 'string') {
     throw new Error('Unsupported value for jwtSecret.')
@@ -53,7 +50,13 @@ module.exports = ({ jwtSecret, client, connection, userTable = 'Users', username
 
   // Setting up Passport JWT verification
   passport.use(new JwtStrategy({
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: function (req) {
+      let token = null
+      if (req) {
+        token = signed ? req.signedCookies.token : req.cookies.token
+      }
+      return token
+    },
     secretOrKey: jwtSecret
   }, ({ id }, callback) => {
     return knex(userTable)

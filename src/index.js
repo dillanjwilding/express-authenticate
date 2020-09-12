@@ -42,7 +42,7 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
       }
 
       // Cookies
-      app.use(cookieParser(cookieSecret))
+      app.use(cookieParser(cookieSecret, cookieConfig))
 
       // CSRF for all requests
       app.use(csurf({ cookie: true, ...cookieConfig }))
@@ -59,7 +59,7 @@ module.exports = ({ jwtSecret, cookieSecret, client, connection, userTable, user
       app.use(passport.initialize())
 
       // Routes: Authentication
-      app.use(loginRoute, require('./login.js')({ jwtSecret, cookieConfig, session }))
+      app.use(loginRoute, require('./login.js')({ jwtSecret, cookieConfig, session, signed: cookieConfig.signed }))
     },
     requireAuth: passport.authenticate('jwt', { session })
   }
