@@ -14,7 +14,7 @@ const router = Router()
  * signed: Sign if secret is supplied to cookieParser
  * @param boolean session
  */
-module.exports = ({ jwtSecret, jwtCookie, cookieConfig, session = false }) => {
+module.exports = ({ jwtSecret, jwtCookie, cookieConfig, callback, session = false }) => {
   // Validation
   if (typeof jwtSecret !== 'string') {
     throw new Error('Unacceptable value for JWT secret')
@@ -35,10 +35,14 @@ module.exports = ({ jwtSecret, jwtCookie, cookieConfig, session = false }) => {
       if (err || !user) return res.status(400).json({ error: info ? info.message : 'Login Failed' })
       req.login(user, { session }, async err => {
         if (err) return res.status(400).json({ error: info ? info.message : 'Login Failed' })
-        delete user.password // protect password by never returning it
+        delete user.password // Protect password by never returning it
         // Possibly use a limited set of user data to generate JWT rather than all the values in the whole table
         res.cookie(jwtCookie, jwt.sign({ ...user }, jwtSecret, { expiresIn: '6h' }), cookieConfig)
-        return res.json({ user })
+        if (callback) {
+          callback(user)
+        } else {
+          return res.json({ user }) // probably should remove this
+        }
       })
     })(req, res, next)
   })

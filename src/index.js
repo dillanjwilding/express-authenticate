@@ -4,7 +4,7 @@ const csurf = require('csurf')
 const express = require('express')
 const helmet = require('helmet')
 
-module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_csrf', client, connection, userTable, usernameField, passwordField, loginRoute = '/login', session = false }) => {
+module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_csrf', client, connection, userTable, usernameField, passwordField, loginRoute = '/login', loginCallback, session = false }) => {
   // Validation
   // jwtSecret
   if (typeof cookieSecret !== 'string') {
@@ -59,7 +59,7 @@ module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_c
       app.use(passport.initialize())
 
       // Routes: Authentication
-      app.use(loginRoute, require('./login.js')({ jwtSecret, jwtCookie, cookieConfig, session, signed: cookieConfig.signed }))
+      app.use(loginRoute, require('./login.js')({ jwtSecret, jwtCookie, cookieConfig, session, signed: cookieConfig.signed, login: loginCallback }))
     },
     requireAuth: passport.authenticate('jwt', { session })
   }

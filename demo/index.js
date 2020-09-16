@@ -60,10 +60,20 @@ app.get('/login', (req, res, next) => {
   res.render('login', { _csrf: req.csrfToken() })
 })
 
-// Example of a route that requires authentication
+// Example of routes that require authentication
 app.get('/home', requireAuth, (req, res, next) => {
-  // If you're logged in, you should be able to go to /home, if not you should get an error
+  // If you're logged in, you should be able to go to /home, if not you should get an Unauthorized error
   res.send('Authenticated')
+})
+
+// Routes for getting user data for the Example React app
+app.get('/users', requireAuth, (req, res, next) => {
+  knex('Users').where().then(users => res.json(users))
+})
+
+// Routes for getting user data for the Example React app
+app.get('/user/:id', requireAuth, (req, res, next) => {
+  knex('Users').where({ id: req.params.id }).first().then(user => res.json(user))
 })
 
 // Make Express listen to port 3000 and display success message

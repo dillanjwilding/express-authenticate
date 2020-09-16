@@ -44,12 +44,11 @@ module.exports = ({ jwtSecret, jwtCookie, signed = true, client, connection, use
   }, (uniqueId, password, callback) => {
     return knex(userTable)
       // .select(passwordField)
-      .where(usernameField, uniqueId)
+      .where({ [usernameField]: uniqueId })
       .first().then(user => {
         if (!user || !bcrypt.compareSync(password, user[passwordField])) return callback(null, false)
         return callback(null, user)
       }).catch(error => {
-        console.log(error)
         return callback(error, false)
       })
   }))
