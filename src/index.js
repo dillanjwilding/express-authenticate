@@ -4,7 +4,7 @@ const csurf = require('csurf')
 const express = require('express')
 const helmet = require('helmet')
 
-module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_csrf', client, connection, userTable, usernameField, passwordField, loginRoute = '/login', loginCallback, session = false }) => {
+module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_csrf', client, connection, userTable, usernameField, passwordField, loginRoute = '/login', loginCallback, session = false, logoutRoute = '/logout' }) => {
   // Validation
   // jwtSecret
   if (typeof cookieSecret !== 'string') {
@@ -16,6 +16,9 @@ module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_c
   }
   if (typeof session !== 'boolean') {
     throw new Error('Unsupported value for session parameter.')
+  }
+  if (typeof logoutRoute !== 'string') {
+    throw new Error('Unsupported value for logoutRoute parameter.')
   }
   // @todo: Limit the acceptable props and do more validation
 
@@ -60,6 +63,7 @@ module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_c
 
       // Routes: Authentication
       app.use(loginRoute, require('./login.js')({ jwtSecret, jwtCookie, cookieConfig, session, signed: cookieConfig.signed, login: loginCallback }))
+      app.use(logoutRoute, require('./logout.js')({ jwtCookie }))
     },
     requireAuth: passport.authenticate('jwt', { session })
   }
