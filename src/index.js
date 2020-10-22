@@ -28,6 +28,7 @@ module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_c
   return {
     setup: app => {
       // Parse requests to routes
+      // @todo: Add logoutRoute?
       app.use(loginRoute, express.json(), express.urlencoded({ extended: false }))
 
       // @todo: Change secure to true
@@ -62,6 +63,7 @@ module.exports = ({ jwtSecret, jwtCookie = 'jwt', cookieSecret, csrfCookie = '_c
       app.use(passport.initialize())
 
       // Routes: Authentication
+      // @todo: Add signup?
       app.use(loginRoute, require('./login.js')({ jwtSecret, jwtCookie, cookieConfig, session, signed: cookieConfig.signed, login: loginCallback }))
       app.use(logoutRoute, require('./logout.js')({ jwtCookie }))
     },
