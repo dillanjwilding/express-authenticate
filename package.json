@@ -32,32 +32,32 @@
     "build": "webpack"
   },
   "dependencies": {
-    "bcrypt": "~5.0.0",
-    "cookie-parser": "^1.4.5",
+    "bcrypt": "~5.0.1",
+    "cookie-parser": "~1.4.5",
     "cors": "~2.8.5",
-    "csurf": "^1.11.0",
-    "helmet": "~4.1.0",
+    "csurf": "~1.11.0",
+    "helmet": "~4.4.1",
     "jsonwebtoken": "~8.5.1",
-    "knex": "~0.21.5",
+    "knex": "~0.95.2",
     "passport": "~0.4.1",
     "passport-jwt": "~4.0.0",
     "passport-local": "~1.0.0"
   },
   "devDependencies": {
-    "babel-loader": "^8.1.0",
-    "clean-webpack-plugin": "^3.0.0",
+    "babel-loader": "~8.2.2",
+    "clean-webpack-plugin": "~3.0.0",
     "dotenv": "~8.2.0",
-    "ejs": "~3.1.5",
+    "ejs": "~3.1.6",
     "express": "~4.17.1",
-    "jest": "~26.4.2",
-    "morgan": "^1.10.0",
+    "jest": "~26.6.3",
+    "morgan": "~1.10.0",
     "mysql": "~2.18.1",
-    "nodemon": "~2.0.4",
-    "pg": "~8.3.2",
-    "standard": "~14.3.4",
-    "webpack": "~4.44.1",
-    "webpack-cli": "~3.3.12",
-    "webpack-dev-server": "~3.11.0"
+    "nodemon": "~2.0.7",
+    "pg": "~8.5.1",
+    "standard": "~16.0.3",
+    "webpack": "~5.26.0",
+    "webpack-cli": "~4.5.0",
+    "webpack-dev-server": "~3.11.2"
   },
   "standard": {
     "ignore": [
